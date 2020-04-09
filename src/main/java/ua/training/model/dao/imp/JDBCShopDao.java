@@ -53,7 +53,7 @@ public class JDBCShopDao implements ShopDao {
     }
 
     static Shop extractFromResultSet(ResultSet rs, Map<Integer, Shop> existing) throws SQLException {
-        int id = rs.getInt("shop_id");
+        int id = rs.getInt("shop.id");
         Shop result = existing.getOrDefault(id, new Shop(id,
                 rs.getString("name"),
                 rs.getString("phone")));

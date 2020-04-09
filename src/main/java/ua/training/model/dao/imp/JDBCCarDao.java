@@ -38,7 +38,7 @@ public class JDBCCarDao implements CarDao {
 		try (Statement ps = connection.createStatement()) {
             //TODO: select a limited column list instead of the wildcard
 			ResultSet rs = ps.executeQuery(
-					"SELECT *, shop.id AS shop_id FROM car " +
+					"SELECT * FROM car " +
 							"LEFT JOIN manufacturer ON car." + JDBCManufacturerDao.FOREIGN_KEY + "=manufacturer.id " +
 							"LEFT JOIN shop ON shop." + JDBCManufacturerDao.FOREIGN_KEY + "=manufacturer.id");
 			while (rs.next()) {

@@ -35,6 +35,15 @@ public class JDBCDaoFactory extends DaoFactory {
         return new JDBCShopDao(getConnection());
     }
 
+    private Connection getConnection(){
+        try {
+            getProperties();
+            return DriverManager.getConnection(url, user, password);
+        } catch (SQLException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private void getProperties() throws IOException {
         try (InputStream input = getClass().getClassLoader().getResourceAsStream(PROPERTIES)) {
             Properties prop = new Properties();
@@ -42,15 +51,6 @@ public class JDBCDaoFactory extends DaoFactory {
             url = prop.getProperty(DB_URL);
             user = prop.getProperty(DB_USER);
             password = prop.getProperty(DB_PWD);
-        }
-    }
-
-    private Connection getConnection(){
-        try {
-            getProperties();
-            return DriverManager.getConnection(url, user, password);
-        } catch (SQLException | IOException e) {
-            throw new RuntimeException(e);
         }
     }
 }
